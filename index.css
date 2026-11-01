@@ -1,0 +1,475 @@
+/* ===== Warna ===== */
+:root {
+  --bg: #ffe3ec;
+  --dot: #ffc2d6;
+  --ink: #4a2b3a;
+  --pink: #ff6f9c;
+  --pink2: #ffc2d6;
+  --card: #fffafc;
+  --butter: #fff0a8;
+  --on: #ffffff;
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #2a1822;
+    --dot: #3d2230;
+    --ink: #ffe8f1;
+    --pink: #ff7fa8;
+    --pink2: #6a3a50;
+    --card: #3a2330;
+    --butter: #4d4326;
+    --on: #2a1822;
+  }
+}
+
+/* ===== Dasar ===== */
+* {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg);
+  background-image: radial-gradient(var(--dot) 2.5px, transparent 3px);
+  background-size: 26px 26px;
+  color: var(--ink);
+  font-family: "Fredoka", system-ui, sans-serif;
+  font-weight: 500;
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+
+main {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 36px 22px calc(28px + env(safe-area-inset-bottom, 0px));
+}
+
+/* ===== Pita tulisan berjalan ===== */
+.pita {
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+  white-space: nowrap;
+  background: var(--butter);
+  border-bottom: 3px dashed var(--pink);
+  padding: calc(8px + env(safe-area-inset-top, 0px)) 0 8px;
+  font-weight: 600;
+}
+
+.pita-isi {
+  display: inline-block;
+  animation: geser 22s linear infinite;
+}
+
+@keyframes geser {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ===== Emoji melayang di latar ===== */
+#latar {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.melayang {
+  position: absolute;
+  top: 0;
+  opacity: 0.6;
+  animation: naik linear infinite;
+}
+
+@keyframes naik {
+  from {
+    transform: translateY(105vh) rotate(0deg);
+  }
+  to {
+    transform: translateY(-15vh) rotate(40deg);
+  }
+}
+
+/* ===== Panggung + kartu ===== */
+.panggung {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+}
+
+.layar {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 18px;
+  background: var(--card);
+  border: 4px solid var(--pink);
+  border-radius: 44px 44px 36px 36px;
+  padding: 40px 22px 30px;
+  box-shadow: 0 8px 0 var(--pink2);
+}
+
+.layar.aktif {
+  display: flex;
+  animation: muncul 0.4s ease-out;
+}
+
+@keyframes muncul {
+  from {
+    transform: scale(0.92);
+    opacity: 0;
+  }
+}
+
+/* Stiker di pojok kartu */
+.stiker {
+  position: absolute;
+  z-index: 2;
+  font-size: 2.2rem;
+  pointer-events: none;
+  animation: goyang-stiker 2.6s ease-in-out infinite;
+}
+.s1 { top: -22px; left: -14px; --r: -15deg; }
+.s2 { top: -22px; right: -12px; --r: 12deg; animation-delay: 0.5s; }
+.s3 { bottom: 36px; left: -16px; --r: -10deg; animation-delay: 1s; }
+.s4 { bottom: 32px; right: -14px; --r: 14deg; animation-delay: 1.5s; }
+
+@keyframes goyang-stiker {
+  0%, 100% { transform: rotate(var(--r)) scale(1); }
+  50% { transform: rotate(calc(var(--r) + 14deg)) scale(1.12); }
+}
+
+/* ===== Teks ===== */
+h1 {
+  margin: 0;
+  font-size: clamp(1.7rem, 7.5vw, 2.4rem);
+  line-height: 1.2;
+  font-weight: 600;
+  text-shadow: 0 3px 0 var(--pink2);
+}
+
+p {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.emoji {
+  font-size: 5rem;
+  line-height: 1;
+  animation: loncat 1.6s ease-in-out infinite;
+}
+
+@keyframes loncat {
+  50% {
+    transform: translateY(-10px) scale(1.06);
+  }
+}
+
+.emoji.sedih {
+  animation: goyang 0.6s ease-in-out 3;
+}
+
+@keyframes goyang {
+  25% { transform: rotate(-8deg); }
+  75% { transform: rotate(8deg); }
+}
+
+/* ===== Kotak gombalan & pantun ===== */
+.kutipan {
+  width: 100%;
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--pink2);
+  border-radius: 28px;
+  padding: 20px 16px;
+  font-size: 1.25rem;
+  line-height: 1.5;
+}
+
+.kutipan span {
+  display: block;
+  opacity: 0;
+  animation: nongol 0.5s ease-out forwards;
+}
+
+@keyframes nongol {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ===== Tombol ===== */
+.baris {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+
+.tombol {
+  display: inline-block;
+  font: inherit;
+  font-size: 1.1rem;
+  font-weight: 600;
+  background: var(--pink);
+  color: var(--on);
+  border: 2px solid var(--pink);
+  border-radius: 999px;
+  padding: 12px 26px;
+  min-height: 48px;
+  cursor: pointer;
+  box-shadow: 0 5px 0 rgba(0, 0, 0, 0.18);
+}
+
+.tombol.kedua {
+  background: var(--card);
+  color: var(--ink);
+}
+
+.tombol.kecil {
+  font-size: 0.95rem;
+  padding: 8px 16px;
+  min-height: 40px;
+}
+
+.tombol.hadiah {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  border-radius: 28px;
+  padding: 12px 16px;
+  background: var(--card);
+  color: var(--ink);
+}
+
+.tombol.hadiah span {
+  font-size: 2.2rem;
+  line-height: 1.1;
+}
+
+.tombol:active {
+  transform: translateY(4px);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.18);
+}
+
+.tombol:focus-visible,
+.tombol:focus-within {
+  outline: 3px solid var(--pink);
+  outline-offset: 3px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+/* ===== Foto Lala (polaroid) ===== */
+.puk-wrap {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 8px 0 4px;
+}
+
+.polaroid {
+  position: relative;
+  margin: 0;
+  width: min(240px, 72%);
+  background: #ffffff;
+  color: #4a2b3a;
+  padding: 10px 10px 8px;
+  border-radius: 6px;
+  box-shadow: 0 6px 0 var(--pink2);
+  transform: rotate(-3deg);
+  animation: pat 1.1s ease-in-out infinite;
+}
+
+/* selotip */
+.polaroid::before {
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  width: 70px;
+  height: 22px;
+  margin-left: -35px;
+  background: #fff0a8;
+  opacity: 0.9;
+  transform: rotate(4deg);
+}
+
+@keyframes pat {
+  50% {
+    transform: rotate(-3deg) translateY(4px) scale(0.985);
+  }
+}
+
+.polaroid img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 3px;
+}
+
+.polaroid figcaption {
+  padding-top: 8px;
+  font-size: 1.1rem;
+  text-align: center;
+}
+
+.foto-kosong {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  padding: 10px;
+  background: #ffe3ec;
+  border: 2px dashed #ff6f9c;
+  border-radius: 3px;
+  text-align: center;
+}
+
+.foto-kosong span {
+  font-size: 2.4rem;
+}
+
+.foto-kosong small {
+  font-size: 0.8rem;
+}
+
+/* tulisan "puk" yang muncul-hilang */
+.puk {
+  position: absolute;
+  z-index: 3;
+  right: 4%;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--pink);
+  opacity: 0;
+  animation: kedip 1.8s ease-in-out infinite;
+}
+.puk1 { top: -4px; }
+.puk2 { top: 40px; right: 0; animation-delay: 0.6s; }
+.puk3 { top: 84px; right: 3%; animation-delay: 1.2s; }
+
+@keyframes kedip {
+  0% { opacity: 0; transform: translateY(8px) scale(0.8); }
+  30%, 60% { opacity: 1; transform: none; }
+  100% { opacity: 0; transform: translateY(-8px) scale(1.1); }
+}
+
+/* ===== Titik langkah ===== */
+.titik {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 30px;
+}
+
+.titik i {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--pink2);
+  transition: transform 0.3s, background 0.3s;
+}
+
+.titik i.on {
+  background: var(--pink);
+  transform: scale(1.4);
+}
+
+/* ===== Bunga dan hati jatuh / meledak ===== */
+#bunga {
+  position: fixed;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.bunga {
+  position: absolute;
+  top: -60px;
+  animation: jatuh linear forwards;
+}
+
+@keyframes jatuh {
+  to {
+    transform: translateY(110vh) rotate(360deg);
+  }
+}
+
+.hati {
+  position: fixed;
+  z-index: 6;
+  pointer-events: none;
+  font-size: 22px;
+  animation: terbang 1.1s ease-out forwards;
+}
+
+@keyframes terbang {
+  to {
+    transform: translate(var(--dx), -120px) scale(1.5);
+    opacity: 0;
+  }
+}
+
+/* ===== Hormati pengaturan "kurangi gerakan" ===== */
+@media (prefers-reduced-motion: reduce) {
+  .pita-isi,
+  .stiker,
+  .emoji,
+  .emoji.sedih,
+  .polaroid,
+  .layar.aktif {
+    animation: none;
+  }
+  .kutipan span {
+    animation: none;
+    opacity: 1;
+  }
+  .melayang,
+  .bunga,
+  .hati {
+    display: none;
+  }
+  .puk {
+    animation: none;
+    opacity: 1;
+  }
+}

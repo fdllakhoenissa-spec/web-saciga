@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>Semangat Saciga</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <!-- Pita tulisan berjalan di atas -->
+    <div class="pita" aria-hidden="true">
+      <div class="pita-isi" id="pita-isi"></div>
+    </div>
+
+    <!-- Emoji melayang di latar belakang -->
+    <div id="latar" aria-hidden="true"></div>
+
+    <main>
+      <div class="panggung">
+        <!-- Stiker hiasan di pojok kartu -->
+        <span class="stiker s1" aria-hidden="true">🎀</span>
+        <span class="stiker s2" aria-hidden="true">⭐</span>
+        <span class="stiker s3" aria-hidden="true">🌸</span>
+        <span class="stiker s4" aria-hidden="true">🍓</span>
+
+        <!--
+          CARA EDIT:
+          - data-langkah = nomor titik di bawah kartu
+          - data-ke      = layar tujuan saat tombol ditekan
+          - data-hujan   = "bunga" atau "hati" supaya hujan muncul di layar tujuan
+        -->
+
+        <!-- 1. Sambutan -->
+        <section class="layar aktif" id="layar-1" data-langkah="1">
+          <div class="emoji">💗</div>
+          <h1>SEMANGAT SACIGA KUU</h1>
+          <button class="tombol" data-ke="layar-makan">Lanjut</button>
+        </section>
+
+        <!-- 2. Makan -->
+        <section class="layar" id="layar-makan" data-langkah="2">
+          <div class="emoji">🍚</div>
+          <h1>SACIGA KU UDAH MAKAN BELUM?</h1>
+          <div class="baris">
+            <button class="tombol" data-ke="layar-makan-sudah" data-hujan="bunga">Sudah sayang</button>
+            <button class="tombol kedua" data-ke="layar-makan-belum">Belum sayang</button>
+          </div>
+        </section>
+
+        <section class="layar" id="layar-makan-sudah" data-langkah="2">
+          <div class="emoji">🥰</div>
+          <h1>OKE SEMANGAT SACIGA NYA LALA</h1>
+          <button class="tombol" data-ke="layar-minum">Lanjut</button>
+        </section>
+
+        <section class="layar" id="layar-makan-belum" data-langkah="2">
+          <div class="emoji sedih">😢</div>
+          <h1>Kenapa belum maam sayang?</h1>
+          <p>Nanti catit loh... makan yaa 🍽️</p>
+          <button class="tombol" data-ke="layar-minum">Lanjut</button>
+        </section>
+
+        <!-- 3. Minum -->
+        <section class="layar" id="layar-minum" data-langkah="3">
+          <div class="emoji">💧</div>
+          <h1>UDAH MINUM AIR PUTIH BELUM?</h1>
+          <div class="baris">
+            <button class="tombol" data-ke="layar-minum-sudah" data-hujan="hati">Sudah sayang</button>
+            <button class="tombol kedua" data-ke="layar-minum-belum">Belum sayang</button>
+          </div>
+        </section>
+
+        <section class="layar" id="layar-minum-sudah" data-langkah="3">
+          <div class="emoji">🥳</div>
+          <h1>PINTER BANGET SACIGA KU!</h1>
+          <p>Badan sehat, kerjanya makin semangat 💪</p>
+          <button class="tombol" data-ke="layar-gombal">Lanjut</button>
+        </section>
+
+        <section class="layar" id="layar-minum-belum" data-langkah="3">
+          <div class="emoji sedih">🥺</div>
+          <h1>AYO MINUM DULU SAYANG</h1>
+          <p>Glek glek glek... nanti pusing loh 💧</p>
+          <button class="tombol" data-ke="layar-gombal">Lanjut</button>
+        </section>
+
+        <!-- 4. Gombalan (isinya ada di index.js, bagian "koleksi") -->
+        <section class="layar" id="layar-gombal" data-langkah="4" data-kartu="gombal">
+          <div class="emoji">🤭</div>
+          <h1>GOMBALAN HARI INI</h1>
+          <div class="kutipan" id="isi-gombal" aria-live="polite"></div>
+          <div class="baris">
+            <button class="tombol kedua" data-lagi="gombal">Gombalan lagi</button>
+            <button class="tombol" data-ke="layar-pantun">Lanjut</button>
+          </div>
+        </section>
+
+        <!-- 5. Pantun (isinya ada di index.js, bagian "koleksi") -->
+        <section class="layar" id="layar-pantun" data-langkah="5" data-kartu="pantun">
+          <div class="emoji">📜</div>
+          <h1>PANTUN BUAT SACIGA</h1>
+          <div class="kutipan" id="isi-pantun" aria-live="polite"></div>
+          <div class="baris">
+            <button class="tombol kedua" data-lagi="pantun">Pantun lagi</button>
+            <button class="tombol" data-ke="layar-hari">Lanjut</button>
+          </div>
+        </section>
+
+        <!-- 6. Gimana hari ini -->
+        <section class="layar" id="layar-hari" data-langkah="6">
+          <div class="emoji">🌤️</div>
+          <h1>GIMANA HARI INI? CAPE GAA?</h1>
+          <div class="baris">
+            <button class="tombol" data-ke="layar-gakcape" data-hujan="bunga">Gak cape</button>
+            <button class="tombol kedua" data-ke="layar-cape" data-hujan="hati">Cape</button>
+          </div>
+        </section>
+
+        <section class="layar" id="layar-gakcape" data-langkah="6">
+          <div class="emoji">🥳</div>
+          <h1>WAH HEBAT SACIGA KU!</h1>
+          <p>Terus semangat yaa, Lala bangga 💗</p>
+          <button class="tombol" data-ke="layar-kangen">Lanjut</button>
+        </section>
+
+        <section class="layar" id="layar-cape" data-langkah="6">
+          <h1>CAPE YAA? LIAT FOTO LALA AJAA</h1>
+
+          <div class="puk-wrap">
+            <span class="puk puk1" aria-hidden="true">puk</span>
+            <span class="puk puk2" aria-hidden="true">puk</span>
+            <span class="puk puk3" aria-hidden="true">puk</span>
+
+            <figure class="polaroid">
+              <!-- Taruh foto bernama lala.jpg di folder yang sama -->
+              <img id="foto-lala" src="lala.jpg" alt="Foto Lala" />
+
+              <div class="foto-kosong" id="foto-kosong" hidden>
+                <span>📷</span>
+                <small>Taruh foto bernama lala.jpg di folder ini, atau pilih dari galeri</small>
+                <label class="tombol kedua kecil">
+                  Pilih foto Lala
+                  <input type="file" id="pilih-foto" accept="image/*" class="sr-only" />
+                </label>
+              </div>
+
+              <figcaption>Lala 💗</figcaption>
+            </figure>
+          </div>
+
+          <p>Nanti Lala puk puk puk 🤗</p>
+          <button class="tombol" data-ke="layar-kangen">Lanjut</button>
+        </section>
+
+        <!-- 7. Kangen -->
+        <section class="layar" id="layar-kangen" data-langkah="7">
+          <div class="emoji">🥹</div>
+          <h1>SACIGA KANGEN LALA GAA?</h1>
+          <div class="baris">
+            <button class="tombol" data-ke="layar-kangen-iya" data-hujan="hati">Kangen banget</button>
+            <button class="tombol kedua" data-ke="layar-kangen-dikit">Dikit ajaa</button>
+          </div>
+        </section>
+
+        <section class="layar" id="layar-kangen-iya" data-langkah="7">
+          <div class="emoji">🥰</div>
+          <h1>LALA JUGA KANGEN</h1>
+          <p>Kangen banget malah 💗</p>
+          <button class="tombol" data-ke="layar-hadiah">Lanjut</button>
+        </section>
+
+        <section class="layar" id="layar-kangen-dikit" data-langkah="7">
+          <div class="emoji sedih">😤</div>
+          <h1>HMM DIKIT DOANG?</h1>
+          <p>Awas yaa... eh nggak jadi ngambek, tetap sayang kok 😝</p>
+          <button class="tombol" data-ke="layar-hadiah">Lanjut</button>
+        </section>
+
+        <!-- 8. Pilih hadiah -->
+        <section class="layar" id="layar-hadiah" data-langkah="8">
+          <div class="emoji">🎁</div>
+          <h1>PILIH HADIAH BUAT SACIGA</h1>
+          <p>Satu aja yaa 😝</p>
+          <div class="baris">
+            <button class="tombol hadiah" data-ke="layar-penutup" data-hujan="bunga" data-hadiah="🍦 Es krim">
+              <span>🍦</span>Es krim
+            </button>
+            <button class="tombol hadiah" data-ke="layar-penutup" data-hujan="bunga" data-hadiah="🧋 Boba">
+              <span>🧋</span>Boba
+            </button>
+            <button class="tombol hadiah" data-ke="layar-penutup" data-hujan="bunga" data-hadiah="🍫 Coklat">
+              <span>🍫</span>Coklat
+            </button>
+          </div>
+        </section>
+
+        <!-- 9. Penutup -->
+        <section class="layar" id="layar-penutup" data-langkah="9">
+          <div class="emoji">💌</div>
+          <h1>SEMANGAT YAA SACIGA KU!</h1>
+          <p>Hadiahnya: <strong id="hadiah-hasil">🍦 Es krim</strong>, nanti Lala traktir 💗</p>
+          <p>Sayang kamu banyak-banyak. Lala</p>
+          <button class="tombol kedua" data-ke="layar-1">Ulang</button>
+        </section>
+
+        <!-- Titik penanda langkah -->
+        <div class="titik" id="titik" aria-hidden="true"></div>
+      </div>
+    </main>
+
+    <!-- Tempat bunga dan hati jatuh -->
+    <div id="bunga" aria-hidden="true"></div>
+
+    <script src="index.js"></script>
+  </body>
+</html>
